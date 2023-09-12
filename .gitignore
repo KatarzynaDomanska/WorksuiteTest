@@ -1,0 +1,54 @@
+# Project specific
+.idea/
+*.iml
+classes/
+.vscode
+.java-version
+ 
+# Java template
+*.class
+ 
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Package Files #
+*.jar
+*.war
+*.ear
+ 
+# Tests
+coverage/
+reports/
+report/
+ 
+# OSX template
+.DS_Store
+ 
+# NodeJS
+node_modules/
+node
+dist
+
+
+
+
+
+.metadata
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+local.properties
+.settings/
+ 
+
+ 
+
+ 
+ 
+ 
+
