@@ -19,6 +19,15 @@ describe('Payment', () => {
     it('Open ADD NEW EXPENSE modal', () => {
         payment.openExpenseModal();
         payment.getExpenseModal();
+        //Check if payment partner is visible
         payment.findPaymentPartner();
+        //Check is user can fill the form'
+        payment.fillExpenseForm();
+    });
+
+    it('Check if new payments are visible', () => {
+        let initialRowCount;
+        cy.scrollToBottom()
+
     })
 })
