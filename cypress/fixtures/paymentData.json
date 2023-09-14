@@ -1,5 +1,0 @@
-{
-  "selectors": {
-    "paymentTab": "[data-testid='SidebarItem-payments']"
-  }
-}

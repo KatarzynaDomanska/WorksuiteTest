@@ -12,22 +12,36 @@ describe('Payment', () => {
         dashboard.clickPaymentTab();
     });
 
-    it.skip('Open payment page', () => {
+    it.skip('User should pen payment page', () => {
         cy.validateUrl('/payments/unpaid-work')
     });
 
-    it('Open ADD NEW EXPENSE modal', () => {
-        payment.openExpenseModal();
+    it('User should click "Add new expense" button to see modal', () => {
+        payment.clickNewExpenseButton();
         payment.getExpenseModal();
-        //Check if payment partner is visible
-        payment.findPaymentPartner();
-        //Check is user can fill the form'
-        payment.fillExpenseForm();
     });
 
-    it('Check if new payments are visible', () => {
-        let initialRowCount;
-        cy.scrollToBottom()
+    it('User should see partner name on modal', () => {
+        payment.clickNewExpenseButton();
+        payment.findPaymentPartner();
+    });
 
-    })
+    it('User should fill payment form, upload PDF and save form', () => {
+        payment.clickNewExpenseButton();
+        payment.fillExpenseForm();
+        payment.sendExpenseForm();
+    });
+
+    payment.getNumberOfExpenses();
+});
+
+it('Expenses number should be higher after saving form', () => {
+
+});
+
+    // it('Check if new payments are visible', () => {
+    //     let initialRowCount;
+    //     cy.scrollToBottom()
+
+    // })
 })
