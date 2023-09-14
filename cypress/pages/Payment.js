@@ -1,39 +1,94 @@
-import { method } from "bluebird";
 import { parseInt } from "lodash";
 
 export default class Payment {
 
-    clickNewExpenseButton() {
-        return cy.xpath('//a[@class=\'btn-default\']/span').click();
+    newExpenseButton() {
+        cy.xpath('//a[@class=\'btn-default\']/span')
+            .click();
     }
 
     getExpenseModal() {
-        return cy.get('.document-modal.add-payment-modal').find('h1').should('have.text', 'Add new expense');
+        cy.get('.document-modal.add-payment-modal')
+            .find('h1')
+            .should('have.text', 'Add new expense');
     }
 
     findPaymentPartner() {
-        return cy.get('.selected-vendor').contains(' Test Vendor 1 ');
+        cy.get('.selected-vendor')
+            .contains(' Test Vendor 1 ');
     }
 
-    getPaymentList() {
-        return cy.get('#payment-list--v2').should('be.visible');
+    fillTotalAmount() {
+        cy.xpath('//input[@placeholder=\'Amount\']')
+            .type(9999);
     }
 
-    fillExpenseForm() {
-        cy.xpath('//input[@placeholder=\'Amount\']').type(9999)
-        cy.xpath('//div[@class=\'col-sm-4 currency\']//select').select('PLN').should('have.value', 'PLN');
-        // cy.get('.css-ji32nv').selectFile('../fixtures/testFile.pdf', { action: 'drag-drop' });
-        cy.xpath('//input[@placeholder=\'Expense name\']').type('Test expanse name');
-        cy.get('#invoiceNote').type('Test invoice note');
-        // date
-        // There is no file called 'Task'
-        cy.xpath('//div[@class=\'custom-field__83\']//input').type(1000);
-        // There is no save button in modal
-        cy.xpath('//div[@class=\'modal-footer\']//button').should('have.text', ' Send   ').click();
+    selectCurrency() {
+        cy.xpath('//div[@class=\'col-sm-4 currency\']//select')
+            .select('PLN')
+            .should('have.value', 'PLN');
+    }
+
+    typeExpenseName() {
+        cy.xpath('//input[@placeholder=\'Expense name\']')
+            .type('Test expense name');
+    }
+
+    typeInvoiceNote() {
+        cy.get('#invoiceNote')
+            .type('Test invoice note');
+    }
+
+    pickPaymentDueDate() {
+        cy.get('.pick-date > .datepicker')
+            .click(),
+            cy.get('.bootstrap-datetimepicker-widget')
+                .should('be.visible'),
+            cy.get(':nth-child(4) > :nth-child(6)')
+                .click(),
+            cy.get('.date')
+                .should('not.have.text', ' Choose date ');
+    }
+
+    typeHowMuchMoney() {
+        cy.xpath('//div[@class=\'custom-field__83\']//input')
+            .type(1000);
+    }
+
+    uploadFile() {
+        cy.xpath('//r-input-file//div[@role=\'presentation\']')
+            .selectFile('cypress/fixtures/testFile.pdf', {
+                action: 'drag-drop'
+            }).then(() => {
+                cy.contains('.css-a57lo7', 'testFile.pdf', { timeout: 5000 })
+                    .should('be.visible');
+            })
+    }
+
+    sendExpenseForm() {
+        cy.xpath('//div[@class=\'modal-footer\']//button')
+            .should('have.text', ' Send   ')
+            .click(),
+            cy.get('.modal-dialog')
+                .should('not.be.visible');
+    }
+
+    checkPaymentStatus() {
+        cy.get(':nth-child(2) > .payment-item__status > payment-status > .payment-status')
+            .should('have.text', ' new ');
+    }
+
+    checkPaymentPreview() {
+        cy.get(':nth-child(2) > .payment-item__name_and_project > .payment-item__name')
+            .click(),
+            cy.get('.modal-dialog')
+                .should('be.visible'),
+            cy.get('.icon-cross-icon')
+                .click();
     }
 
     getNumberOfExpenses() {
-        var oldValue; //zmienne deklarowane za pomocą let nie są przypisywane do globalnego zakresu. Są dostępne tylko w zakresie, w którym zostały zadeklarowane.
+        var oldValue;
         var newValue;
         let csrfToken;
 
@@ -44,10 +99,7 @@ export default class Payment {
             expect(response.status).to.equal(200);
 
             const firstCount = response.body.count;
-            // responseBody zawiera payload odpowiedzi, dostalismy sie tam uzywajac response.body, pasujemy odp JSON
             oldValue = parseInt(firstCount, 10)
-            const oldValueType = typeof oldValue
-            console.log(oldValueType)
         });
 
         cy.getCookie('csrftoken').then((token) => {
@@ -86,7 +138,7 @@ export default class Payment {
                 },
 
             }).then((response) => {
-                expect(response.status).to.equal(202); //mozna jeszcze zwalidowac na message jaki otrzymamy
+                expect(response.status).to.equal(202);
             });
         });
 

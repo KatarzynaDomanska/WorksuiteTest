@@ -7,41 +7,51 @@ describe('Payment', () => {
     const dashboard = new Dashboard();
 
     beforeEach(() => {
-        cy.visit(Cypress.config('baseUrl'))
+        cy.visit(Cypress.config('baseUrl'));
         dashboard.getViewport();
         dashboard.clickPaymentTab();
     });
 
-    it.skip('User should pen payment page', () => {
+    it('User should see payment page', () => {
         cy.validateUrl('/payments/unpaid-work')
     });
 
     it('User should click "Add new expense" button to see modal', () => {
-        payment.clickNewExpenseButton();
+        payment.newExpenseButton();
         payment.getExpenseModal();
     });
 
     it('User should see partner name on modal', () => {
-        payment.clickNewExpenseButton();
+        payment.newExpenseButton();
         payment.findPaymentPartner();
     });
 
     it('User should fill payment form, upload PDF and save form', () => {
-        payment.clickNewExpenseButton();
-        payment.fillExpenseForm();
+        payment.newExpenseButton();
+        payment.fillTotalAmount();
+        payment.selectCurrency();
+        payment.typeExpenseName();
+        payment.typeInvoiceNote();
+        payment.pickPaymentDueDate();
+        payment.typeHowMuchMoney();
+        payment.uploadFile();
         payment.sendExpenseForm();
     });
 
-    payment.getNumberOfExpenses();
+    it('User should see new payment status', () => {
+        payment.checkPaymentStatus();
+    });
+
+    it('User should see payment preview', () => {
+        payment.checkPaymentPreview();
+    });
+
+    it('Additional api check', () => {
+        payment.getNumberOfExpenses();
+    })
+
+    after(() => {
+        cy.visit(Cypress.config('baseUrl'));
+        dashboard.getViewport();
+    });
 });
-
-it('Expenses number should be higher after saving form', () => {
-
-});
-
-    // it('Check if new payments are visible', () => {
-    //     let initialRowCount;
-    //     cy.scrollToBottom()
-
-    // })
-})
