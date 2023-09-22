@@ -48,7 +48,7 @@ describe('Payment', () => {
 
     it('Additional api check', () => {
         payment.getNumberOfExpenses();
-    })
+    });
 
     after(() => {
         cy.visit(Cypress.config('baseUrl'));

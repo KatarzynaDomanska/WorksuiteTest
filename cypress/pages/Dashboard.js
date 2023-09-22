@@ -7,8 +7,4 @@ export default class Dashboard {
     clickPaymentTab() {
         return cy.get("[data-testid='SidebarItem-payments']").click();
     }
-
-    checkExpansesNumber() {
-        cy.get()
-    }
 };

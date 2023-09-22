@@ -130,7 +130,7 @@ export default class Payment {
                     },
                     "note": "API TEST NOTE",
                     "number": "EXPENSE NAME FOR API TEST",
-                    "payment_due": "2023-09-15T23:59:59+02:00",
+                    "payment_due": "2023-09-26T23:59:59+02:00",
                     "related_project": null,
                     "related_task": null,
                     "status": 0,
@@ -152,6 +152,6 @@ export default class Payment {
             newValue = parseInt(secondCount, 10)
 
             expect(newValue).to.be.greaterThan(oldValue);
-        });
-    }
-}
+        })
+    };
+};
