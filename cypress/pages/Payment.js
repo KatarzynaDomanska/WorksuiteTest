@@ -1,20 +1,23 @@
 import { parseInt } from "lodash";
 
 export default class Payment {
+    addNewExpenseButton = '//a[@class=\'btn-default\']/span';
+    expenseModal = '.document-modal.add-payment-modal';
+    paymentPartnerName = '.selected-vendor';
 
     newExpenseButton() {
-        cy.xpath('//a[@class=\'btn-default\']/span')
+        cy.xpath(this.addNewExpenseButton)
             .click();
     }
 
     getExpenseModal() {
-        cy.get('.document-modal.add-payment-modal')
+        cy.get(this.expenseModal)
             .find('h1')
             .should('have.text', 'Add new expense');
     }
 
     findPaymentPartner() {
-        cy.get('.selected-vendor')
+        cy.get(this.paymentPartnerName)
             .contains(' Test Vendor 1 ');
     }
 

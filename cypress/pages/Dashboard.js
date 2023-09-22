@@ -1,10 +1,13 @@
 export default class Dashboard {
 
+    viewportSelector = '#viewport';
+    paymentTabSelector = "[data-testid='SidebarItem-payments']";
+
     getViewport() {
-        return cy.get('#viewport').should('be.visible');
+        return cy.get(this.viewportSelector).should('be.visible');
     }
 
     clickPaymentTab() {
-        return cy.get("[data-testid='SidebarItem-payments']").click();
+        return cy.get(this.paymentTabSelector).click();
     }
 };
