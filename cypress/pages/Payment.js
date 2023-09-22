@@ -1,6 +1,7 @@
 import { parseInt } from "lodash";
 
 export default class Payment {
+
     addNewExpenseButton = '//a[@class=\'btn-default\']/span';
     expenseModal = '.document-modal.add-payment-modal';
     paymentPartnerName = '.selected-vendor';
@@ -91,8 +92,8 @@ export default class Payment {
     }
 
     getNumberOfExpenses() {
-        var oldValue;
-        var newValue;
+        let oldValue;
+        let newValue;
         let csrfToken;
 
         cy.request({
